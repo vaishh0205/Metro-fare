@@ -1,0 +1,114 @@
+#include<iostream.h>
+#include<conio.h>
+#include<fstream.h>
+#include<iomanip.h>
+float A[24]={0,3.6,5.7,6.7,10.3,10.5,11.0,11.4,12.9,14.1,14.7,17.4,17.7,18.2,19.4,20.4,21.1,22.2,25.1,27.1,28.0,28.6,30.8,34.4};
+void putdata()
+{
+ ofstream fout;
+ fout.open("thefile.txt",ios::out);
+ fout<<"Miyapur        "<<endl;
+ fout<<"JNTU           "<<endl;
+ fout<<"KPHB           "<<endl;
+ fout<<"Kukatpally     "<<endl;
+ fout<<"Balanagar      "<<endl;
+ fout<<"Moosapet       "<<endl;
+ fout<<"Bharat Nagar   "<<endl;
+ fout<<"Erragadda      "<<endl;
+ fout<<"ESI            "<<endl;
+ fout<<"SR Nagar       "<<endl;
+ fout<<"Ameerpet       "<<endl;              f
+ fout<<"Begumpet       "<<endl;
+ fout<<"Prakash Nagar  "<<endl;
+ fout<<"Rasoolpura     "<<endl;
+ fout<<"Paradise       "<<endl;
+ fout<<"Parade Grounds "<<endl;
+ fout<<"Secunderabad   "<<endl;
+ fout<<"Mettuguda      "<<endl;
+ fout<<"Tarnaka        "<<endl;
+ fout<<"Habsiguda      "<<endl;
+ fout<<"NGRI           "<<endl;
+ fout<<"Stadium        "<<endl;
+ fout<<"Uppal          "<<endl;
+ fout<<"Nagole         "<<endl;
+ fout.close();
+}
+void displaydata()
+{
+ char line[20], ch;
+ cout<<"\t\t*----*----*----*----*----*----*----*----*"<<endl;
+ cout<<"\t\t*\tWelcome to Hyderabad Metro!\t*"<<endl;
+ cout<<"\t\t*----*----*----*----*----*----*----*----*"<<endl;
+ cout<<"\nThe Metro Stations are:\n";
+ ifstream fin;
+ fin.open("thefile.txt",ios::in);
+ for(int i=1;i<25;i++)
+ {
+  fin.getline(line,20);
+  cout<<i<<". "<<line<<"\t\t";
+  if(i%2==0)
+  {
+   cout<<endl;
+  }
+ }
+}
+float getprice(int a,int b,int c)
+{
+ int t;
+ if(a>b)
+ t=a-b;
+ else if(a<b)
+ t=b-a;
+ int p=t*3;
+ if(p<20)
+ p=5;
+ int p1=(p-(p%5))+5;
+ int tp=p1*c;
+ return tp;
+}
+void main()
+{
+ clrscr();
+ float price;
+ int st1,st2,d1,d2,nt;
+ putdata();
+ displaydata();
+ start1:
+	{
+	 cout<<"\nEnter pick up location: ";
+	}
+ cin>>st1;
+ if(st1<1||st1>24)
+ {
+  cout<<"Wrong choice!\nEnter again!";
+  goto start1;
+ }
+ start2:
+	{
+	 cout<<"\nEnter drop location: ";
+	 cin>>st2;
+	}
+ if(st2<1||st2>24)
+ {
+  cout<<"Wrong choice!\nEnter again!";
+  goto start2;
+ }
+ if(st1==st2)
+ {
+  cout<<"\nPick up and drop can't be at same place!\n";
+  goto start2;
+ }
+ cout<<"\nHow many tickets? ";
+ cin>>nt;
+ d1=A[st1-1];
+ d2=A[st2-1];
+ if((st1<=10&&st2>=12)||(st1>=12&&st2<=10))
+ {
+  cout<<"\nYou have to change trains in Ameerpet\n";
+ }
+ price=getprice(d1,d2,nt);
+ cout<<"\nPlease pay Rs. "<<price;
+ cout<<"( Rs."<<(price/nt)<<" per ticket)";
+ cout<<"\n\nHave a pleasant journey!";
+ getch();
+}
